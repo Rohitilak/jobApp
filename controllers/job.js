@@ -23,11 +23,13 @@ const createJob = async (req, res) => {
 
 const listJob = async (req, res) => {
   try {
-    const { minSalary, maxSalary } = req.query;
-    const jobsList = await JobModel.find({
-      $and: [{ salary: { $gte: minSalary } }, { salary: { $lte: maxSalary } }],
-    });
-    //   console.log(jobsList);
+    // const { minSalary, maxSalary } = req.query;
+    // const jobsList = await JobModel.find({
+    //   $and: [{ salary: { $gte: minSalary } }, { salary: { $lte: maxSalary } }],
+    // });
+
+    const jobsList = await JobModel.find()
+      console.log(jobsList);
     res.json({
       success: true,
       message: "List job api",
@@ -49,12 +51,12 @@ const editJob = async (req, res) => {
     // Model.findByIdAndUpdate(_ID TO FIND THE RECORD, FIELDS WITH DATA TO UPDATE)
     await JobModel.findByIdAndUpdate(jobId, req.body);
     // JobModel.findOneAndUpdate(FIND OBJECT, UPDATE OBJECT)
-    const findObj = {
-      company: "Google",
-    };
-    const updateObj = {
-      age: 10,
-    };
+    // const findObj = {
+    //   company: "Google",
+    // };
+    // const updateObj = {
+    //   age: 10,
+    // };
     //   await JobModel.findOneAndUpdate(findObj, updateObj); // It will update the first matching record
     //   await JobModel.updateMany(findObj, updateObj); // It will update all matching records
     res.json({
@@ -71,12 +73,12 @@ const editJob = async (req, res) => {
 
 const deleteJob = async (req, res) => {
   const jobId = req.params.id;
-  //   await JobModel.findByIdAndDelete(jobId);
-  const findObj = {
-    age: 0,
-  };
+    await JobModel.findByIdAndDelete(jobId);
+  // const findObj = {
+  //   age: 0,
+  // };
   //   await JobModel.findOneAndDelete(findObj);
-  await JobModel.deleteMany(findObj); // Dangerous method (Avoid using it)
+  // await JobModel.deleteMany(findObj); // Dangerous method (Avoid using it)
   res.json({
     success: true,
     message: "Dummy Delete job api",
